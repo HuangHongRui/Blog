@@ -1,6 +1,12 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./App";
-import "./style/index.scss";
+
+const App = () => {
+  return (
+    <>
+      INIT
+    </>
+  )
+}
 
 render(<App />, document.getElementById("Leo"));
