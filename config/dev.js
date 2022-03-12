@@ -1,21 +1,25 @@
 const { merge } = require('webpack-merge');
 const base = require('./base');
-const { entryFile, dist } = require("./paths");
+const { entryFile, dist, public } = require("./paths");
 
 module.exports = merge(base, {
   mode: "development",
   devtool: "inline-source-map",
-  devServer: {
-    static: dist,
-    hot: true,
-    //   contentBase: paths.appPublic,
-    //   // 解决问题: 本地开发路由刷新 404
-    //   historyApiFallback: true,
-    //   watchContentBase: true,
-    //   port: 9000,
-  },
   output: {
     publicPath: "/",
+  },
+  devServer: {
+    hot: true,
+    port: 9000,
+    static: dist,
+    historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        pathRewrite: { "^/api": "" },
+        changeOrigin: true,
+      },
+    },
   },
 });
 
