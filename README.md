@@ -1,2 +1,1 @@
-# JingChuTing
-随便写写.
+# Just Fuck It. :)

@@ -1,22 +1,12 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "commonjs",
-    "outDir": "./dist/",
-    "jsx": "react",
-    "target": "esnext",
-    "lib": ["dom", "esnext"],
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
-    "paths": {
-      "pages": ["./pages"],
-      "style": ["./style"],
-      "component": ["./component"]
-    }
-  },
-  "exclude": ["node_modules"]
+  "outDir": "./dist/",
+  "noImplicitAny": true,
+  "module": "es6",
+  "target": "es5",
+  "jsx": "react",
+  "allowJs": true,
+  "moduleResolution": "node",
+  "allowSyntheticDefaultImports": true
+  }
 }
