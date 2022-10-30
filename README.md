@@ -1,1 +1,1 @@
-# Just Fuck It. :)
+# Just Do It. :)
