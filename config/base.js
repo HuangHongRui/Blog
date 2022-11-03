@@ -1,4 +1,5 @@
-const { src, path, dist } = require("./paths");
+const { src, path, dist, public } = require("./paths");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(src, "index.tsx"),
@@ -6,6 +7,14 @@ module.exports = {
     path: dist,
     filename: "bundle.js",
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(public, "index.html"),
+      favicon: path.resolve(public, "logo.ico"),
+    }),
+  ],
+
   module: {
     rules: [
       {
