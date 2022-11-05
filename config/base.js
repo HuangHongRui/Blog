@@ -16,18 +16,14 @@ module.exports = {
   ],
 
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
       {
         test: /\.less$/i,
@@ -37,7 +33,7 @@ module.exports = {
           'css-loader',
           'less-loader',
         ],
-      }
+      },
     ],
   },
 
