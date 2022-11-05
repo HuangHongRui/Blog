@@ -3,7 +3,6 @@ import Home from "./pages/Home";
 import Demo from "./pages/Else/demo";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HaveFun from "./pages/Else/HaveFun";
-import './index.less'
 import "tailwindcss/tailwind.css"
 
 const App = () => {
@@ -18,4 +17,4 @@ const App = () => {
   );
 };
 
-render(<App />, document.getElementById("Leo"));
+render(<App />, document.getElementById("root"));

@@ -1,24 +1,25 @@
-import { Avatar, Layout } from "@douyinfe/semi-ui"
-import style from './index.module.less';
-import { Typography } from '@douyinfe/semi-ui';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 
-export default () => {
-  const { Sider, Content } = Layout;
-  const { Title } = Typography;
+const Item = styled(Paper)(({ theme }) => ({
+  maxWidth: 1000,
+  minHeight: 400
+}));
+
+export default function Elevation() {
+  const mockList = [1,2,3,4,5,6,7];
   return (
-    <Layout className={style.llayout}>
-      <Sider className={style.lsider}>
-        <Avatar className={style.lavatar} shape="square" src='./file/baby.jpg'/>
-        <Title heading={3} className="text-center my-6">心一也</Title>
-        {/* name */}
-        {/* title */}
-        {/* tool */}
-        {/* bro */}
-        {/* about */}
-      </Sider>
-      <Content className={style.lcontent}>
-
-      </Content>
-    </Layout>
-  )
+    <Box>
+      {mockList.map(item =>
+        <Item key={item} elevation={24} sx={{ my: 2, mx: 'auto', p: 2 }}>
+          <Grid item xs zeroMinWidth>
+            <Typography noWrap>ABCD</Typography>
+          </Grid>
+        </Item>
+      )}
+    </Box>
+  );
 }

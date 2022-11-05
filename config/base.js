@@ -38,6 +38,9 @@ module.exports = {
   },
 
   resolve: {
+    alias: {
+      '@': src,
+    },
     extensions: [".tsx", ".ts", ".js", ".json"],
   },
 };

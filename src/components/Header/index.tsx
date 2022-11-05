@@ -1,41 +1,41 @@
-import { Button, Col, Row, Space } from '@douyinfe/semi-ui';
-import Header from '@douyinfe/semi-ui/lib/es/navigation/Header';
-import React, { useState } from 'react';
-import { IconLanguage, IconGithubLogo, IconSun, IconMoon } from '@douyinfe/semi-icons';
-import style from './index.module.less';
-import { switchMode } from '../../utils';
+import Box from '@mui/material/Box';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default () => {
-  const [on, setOn] = useState(true);
-  const [cn, setCn] = useState(true);
+  const navItems = ['Home', 'About', 'Contact'];
+
   return (
-    <Header className={style.header}>
-      <Row gutter={24} className="nav">
-        <Col span={12} className="logo">
-          <Space>Leo's Blog</Space>
-        </Col>
-        <Col span={12} className="btns">
-          <Space align="end">
-            <Button theme='borderless' type='tertiary' style={{ marginRight: 8 }}>首页</Button>
-            <Button theme='borderless' type='tertiary' style={{ marginRight: 8 }}>文章</Button>
-            <Button theme='borderless' type='tertiary' style={{ marginRight: 8 }}>书签</Button>
-            <Button theme='borderless' type='tertiary' style={{ marginRight: 8 }}>关于</Button>
-            <Button
-              theme='borderless'
-              onClick={() => setCn(v => !v)}
-              icon={<IconLanguage size='large' />} 
-            >
-              {cn ? 'EN' : '中文'}
-            </Button>
-            <Button
-              theme='borderless'
-              icon={on ? <IconMoon size='large' /> : <IconSun size='large' />} 
-              onClick={() => { setOn(t => !t); switchMode() }}
-            />
-            <Button theme='borderless' icon={<IconGithubLogo size='large' />} />
-          </Space>
-        </Col>
-      </Row>
-    </Header>
-  )
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Leo's Blog
+          </Typography>
+
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {navItems.map((item) => (
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }

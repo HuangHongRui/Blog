@@ -1,17 +1,12 @@
-import React from 'react';
-import { Layout } from '@douyinfe/semi-ui';
-import style from './index.module.less';
-import Header from '../../components/Header';
-import Content from '../../components/Content';
-const { Footer } = Layout;
+import Content from "@/components/Content";
+import Header from "@/components/Header";
 
 export default () => {
 
   return (
-    <Layout className={style['home-layout']}>
+    <div>
       <Header />
       <Content />
-      <Footer>Footer</Footer>
-    </Layout>
+    </div>
   );
 };
