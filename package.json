@@ -20,8 +20,10 @@
     "react-router-dom": "^6.4.3"
   },
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "@webpack-cli/serve": "^1.7.0",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "less": "^4.1.3",

@@ -54,28 +54,31 @@ export default () => {
         {data.map(({ title, desc, hot, id }: dataTypes, index: number) => {
           return (
             <React.Fragment key={index} >
-              <ListItem
-                alignItems="flex-start" sx={{ height: 200 }}
-                onClick={() => { navigate(`/article?id=${id}`); }}
-              >
+              <ListItem alignItems="flex-start" sx={{ height: 200 }} >
                 <ListItemText
                   key={index}
-                  primary={title}
+                  primary={
+                    <Button variant="text" className="p-0 text-lg leading-6 font-medium text-inherit text-left">{title}</Button>
+                  }
                   className="flex flex-col h-full"
-                  primaryTypographyProps={{
-                    className: "text-lg leading-6 font-medium cursor-pointer hover:bg-gray-100",
-                  }}
+                  primaryTypographyProps={{ onClick: () => { navigate(`/article?id=${id}`) } }}
                   secondaryTypographyProps={{ className: "flex grow flex-col" }}
                   secondary={
                     <>
-                      <Typography variant="overline" className="text-sm my-1 grow cursor-pointer">
+                      <Typography
+                        variant="overline"
+                        className="text-sm my-1 cursor-pointer truncate whitespace-normal line-clamp-2 xs: max-h-10"
+                        onClick={() => { navigate(`/article?id=${id}`) }}
+                      >
                         {desc}
                       </Typography>
-                      <Typography variant="overline" className="text-[16px]">
-                        <LocalFireDepartmentIcon className="w-3.5 mb-[1px]" />
-                        {hot} 热度
-                        <Button variant="text" className="p-0 ml-2 text-[16px] cursor-pointer text-inherit mt-[-3px] font-normal">
-                          <IosShareIcon className="w-3 mb-[2px]" />
+                      <Typography variant="overline" className="flex items-end grow">
+                        <Typography variant="overline" className="flex items-center leading-4 text-xs min-w-[120px]">
+                          <LocalFireDepartmentIcon className="w-3.5" />
+                          {hot} 热度
+                        </Typography>
+                        <Button variant="text" className="p-0 ml-2 text-xs text-inherit font-normal">
+                          <IosShareIcon className="w-3" />
                           分享
                         </Button>
                       </Typography>
