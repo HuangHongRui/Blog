@@ -1,3 +1,5 @@
+import React from "react";
+
 // 主题切换
 export const switchMode = () => {
   const body = document.body;
@@ -9,4 +11,18 @@ export const switchMode = () => {
       body.setAttribute('theme-mode', 'dark');
       // window.setMode('dark');
   }
+}
+
+//判断元素可见
+export const isVisible = (ele: any) => {
+  let windowHeight = window.innerHeight//可视区域的高
+  let position = ele?.getBoundingClientRect()
+  // 当元素的top偏移量小于页面大小并且大于高度的负数
+  //后面position.top>-position.height主要
+  //是为了防止底边在可视区域的顶部,也就是超出可视区域
+  //这里的判断是重点
+  if(position.top<windowHeight && position.top>-position.height){
+    return true
+  }
+  return false
 }

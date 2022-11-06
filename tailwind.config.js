@@ -5,4 +5,11 @@ module.exports = {
   plugins: [
     require('@tailwindcss/line-clamp'),
   ],
+  theme: {
+    extend: {
+      backgroundImage: {
+        'article-bg-img': "url('/public/file/article.jpg')",
+      }
+    }
+  }
 }
