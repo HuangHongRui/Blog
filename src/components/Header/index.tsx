@@ -5,9 +5,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import useModal, { useModalProps } from '@/hooks/useModal';
+import LoginModal from '../LoginModal';
 
 export default () => {
-  const navItems = ['Home', 'About', 'Contact'];
+  const modalProps: useModalProps = useModal();
+  const fnLogin = () => modalProps.toggle(true);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,13 +31,12 @@ export default () => {
           </Typography>
 
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))}
+            <Button sx={{ color: '#fff' }}>Home</Button>
+            <Button sx={{ color: '#fff' }}>About</Button>
+            <Button sx={{ color: '#fff' }} onClick={fnLogin}>Login</Button>
           </Box>
         </Toolbar>
+        <LoginModal {...modalProps} />
       </AppBar>
     </Box>
   );
