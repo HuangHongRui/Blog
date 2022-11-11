@@ -27,7 +27,7 @@ export default (props: loginModalProps) => {
   }
 
   return (
-    <Modal open={open} onClose={fnClose}>
+    <Modal open={open} onClose={fnClose} container={document.getElementById("root")}>
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h3">
           {title}
@@ -35,6 +35,7 @@ export default (props: loginModalProps) => {
 
         <Box component="form" onSubmit={fnSubmit}>
           <TextField
+            className="w-full"
             id="standard-required"
             variant="standard"
             color="secondary"
@@ -42,6 +43,7 @@ export default (props: loginModalProps) => {
             required
           />
           <TextField
+            className="mt-2 mb-6 w-full "
             id="standard-password-input"
             variant="standard"
             color="secondary"
@@ -49,7 +51,7 @@ export default (props: loginModalProps) => {
             label="密码"
             required
           />
-          <Button className="mt-10" fullWidth type="submit" variant="contained" color="primary">登录</Button>
+          <Button fullWidth type="submit" variant="contained" color="primary">登录</Button>
         </Box>
       </Box>
     </Modal>
