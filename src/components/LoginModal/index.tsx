@@ -1,5 +1,6 @@
 import { Box, Button, Modal, ModalProps, TextField, Typography } from "@mui/material"
 import { useModalProps } from '@/hooks/useModal';
+import { fetchLogin } from "@/service/user";
 
 interface loginModalProps extends useModalProps, Omit<ModalProps, 'children'> { }
 
@@ -21,7 +22,7 @@ export default (props: loginModalProps) => {
   const fnSubmit = async (evt: any) => {
     evt.preventDefault();
     const [account, password] = evt.target
-    console.log(account.value, password.value)
+    const res = await fetchLogin({ username: account.value, password: password.value })
     // fetch API
     toggle(false);
   }

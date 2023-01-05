@@ -1,14 +1,12 @@
 import axios from "axios";
-const request = axios.create();
+const request = axios.create({
+  baseURL: "/api"
+});
 
-request.interceptors.response.use((config) => {
-  return config.data;
+request.interceptors.response.use(res => {
+  return res.data
 }, (error) => {
   return Promise.reject(error);
 })
-
-export const getMusic = (data?: { [key: string]: string | number }) => {
-  return request.get("/api/music", { params: data });
-};
 
 export default request;

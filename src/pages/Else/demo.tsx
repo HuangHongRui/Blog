@@ -1,13 +1,13 @@
 import { useRequest } from "ahooks";
 import { Link } from "react-router-dom";
-import { getMusic } from "../../service";
+// import { getMusic } from "../../service";
 
 const App = () => {
-  const { data } = useRequest(getMusic);
+  // const { data } = useRequest(getMusic);
 
   return (
     <div>
-      <Link to="/">{data?.data || "Demo"}</Link>
+      {/* <Link to="/">{data?.data || "Demo"}</Link> */}
     </div>
   );
 };
