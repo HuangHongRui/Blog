@@ -1,17 +1,19 @@
 import React from 'react';
+import { useRequest } from "ahooks";
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import { Box, Button } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
+import { fetchBlogs } from "@/service/blogs";
+import ListItem from '@mui/material/ListItem';
+import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import ListItemText from '@mui/material/ListItemText';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import { Box, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
-type dataTypes = { title: string, desc: string, hot: string, id: number };
+type dataTypes = { title: string, content: string, pv: string, id: number };
 
-const data: dataTypes[] = [
+const data = [
   {
     title: '11 月 4 日离岸人民币兑美元大涨 1500 点，创有记录以来最大单日涨幅，哪些信息值得关注？',
     desc: '11 月 4 日，随着美元指数大跌，离岸人民币兑美元继续扩大涨...',
@@ -46,12 +48,13 @@ const data: dataTypes[] = [
 
 export default () => {
   const navigate = useNavigate();
+  const { data = [] }: any = useRequest(fetchBlogs, {})
 
   return (
     <Box className='mt-4 border-solid	border-2 rounded-sm mx-auto' sx={{ maxWidth: 1000 }} >
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
 
-        {data.map(({ title, desc, hot, id }: dataTypes, index: number) => {
+        {data?.map(({ title, content, pv, id }: dataTypes, index: number) => {
           return (
             <React.Fragment key={index} >
               <ListItem alignItems="flex-start" sx={{ height: 200 }} >
@@ -70,12 +73,12 @@ export default () => {
                         className="text-sm my-1 cursor-pointer truncate whitespace-normal line-clamp-2 xs: max-h-10"
                         onClick={() => { navigate(`/article?id=${id}`) }}
                       >
-                        {desc}
+                        {content}
                       </Typography>
                       <Typography variant="overline" className="flex items-end grow">
                         <Typography variant="overline" className="flex items-center leading-4 text-xs min-w-[120px]">
                           <LocalFireDepartmentIcon className="w-3.5" />
-                          {hot} 热度
+                          {pv} 热度
                         </Typography>
                         <Button variant="text" className="p-0 ml-2 text-xs text-inherit font-normal">
                           <IosShareIcon className="w-3" />
@@ -87,7 +90,7 @@ export default () => {
                 />
 
               </ListItem>
-              <Divider component="li" key={index} hidden={data.length === index + 1} />
+              {data.length !== index && <Divider component="li" key={index} hidden={data.length === index + 1} />}
             </React.Fragment>
           )
         })}

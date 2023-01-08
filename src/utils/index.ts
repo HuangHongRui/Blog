@@ -26,3 +26,15 @@ export const isVisible = (ele: any) => {
   }
   return false
 }
+
+// 获取Query
+export const getQuery = () => {
+  const query = location.search.slice(1);
+  if (query === '') return {}
+  const q: any = {}
+  query.split('&').forEach((item) => {
+    const [k, v] = item.split('=')
+    q[k] = v
+  })
+  return q;
+}

@@ -1,9 +1,16 @@
-import Anchor from "@/components/Anchor"
-import { Box, Container, Grid, Typography } from "@mui/material"
 import { useRef } from "react"
+import { getQuery } from "@/utils";
+import { useRequest } from "ahooks";
+import Anchor from "@/components/Anchor"
+import { fetchBlog } from "@/service/blogs";
+import { Box, Container, Grid, Typography } from "@mui/material"
 
 export default () => {
   const picRef = useRef(null);
+  const query = getQuery()
+  const { data = {} }: any = useRequest(() => fetchBlog(query))
+  const { title, content } = data
+  console.log(data,1)
 
   return (
     <Box className="min-h-screen" >
@@ -14,6 +21,14 @@ export default () => {
         <Grid item xs={12}>
           <Container maxWidth="md" className="my-14">
             <Typography variant="body2" gutterBottom>
+              {title} 
+            </Typography>
+
+            <Typography variant="body2" gutterBottom>
+              {content} 
+            </Typography>
+
+            {/* <Typography variant="body2" gutterBottom>
               本文是 Systrace 线程 CPU 运行状态分析技巧系列的第一篇，主要分析了 Systrace 中 cpu 的 runnable 状态出现的原因和 Runnable 过长时的一些优化思路。
             </Typography>
             <br />
@@ -58,7 +73,7 @@ export default () => {
             <br/>
             <Typography variant="body2" gutterBottom>
               当一个 CPU 有多个核的时候显然可以多个核同时工作，这时候不必都在一个 CPU 核上排队，根据负载情况（也就是排队情况），将线程迁移到其他核执行是必要的操作。掌管这些调度策略的，是通过 Linux 的调度器来实现的，它具体通过多个调度类（Schedule Class）来管理不同线程的优先级，常见的有:
-            </Typography>
+            </Typography> */}
 
 
 

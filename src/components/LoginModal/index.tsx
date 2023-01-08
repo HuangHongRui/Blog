@@ -1,6 +1,6 @@
 import { Box, Button, Modal, ModalProps, TextField, Typography } from "@mui/material"
 import { useModalProps } from '@/hooks/useModal';
-import { fetchLogin } from "@/service/user";
+import { fetchLogin } from "@/service/users";
 
 interface loginModalProps extends useModalProps, Omit<ModalProps, 'children'> { }
 
