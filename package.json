@@ -12,11 +12,13 @@
   "dependencies": {
     "@codemirror/commands": "^6.1.3",
     "@codemirror/lang-javascript": "^6.1.2",
+    "@codemirror/lang-markdown": "^6.0.5",
     "@codemirror/view": "^6.7.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
+    "@replit/codemirror-vim": "^6.0.4",
     "@types/marked": "^4.0.8",
     "ahooks": "^3.7.2",
     "axios": "^1.1.3",
