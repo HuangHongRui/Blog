@@ -1,62 +1,87 @@
-import '@wangeditor/editor/dist/css/style.css' // 引入 css
-import React, { useState, useEffect } from 'react'
-import { Editor, Toolbar } from '@wangeditor/editor-for-react'
-import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import { useEffect, useRef, useState } from 'react'
 import Header from '@/components/Header'
-import { Container } from '@mui/material'
 import WriterBar from '@/components/WriterBar'
+import { Container, TextareaAutosize } from '@mui/material'
+import { basicSetup } from "codemirror"
+import { EditorView, keymap } from "@codemirror/view"
+import { EditorState, Compartment } from "@codemirror/state"
+import { indentWithTab } from "@codemirror/commands"
+import { solarizedDark } from 'cm6-theme-solarized-dark'
+import { javascript } from "@codemirror/lang-javascript"
+import { marked } from 'marked';
+import 'github-markdown-css'
+import Style from './index.module.less'
+import { editPlaceholder } from '@/utils/mock'
 
 function MyEditor() {
-  // editor 实例
-  const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
-  // const [editor, setEditor] = useState(null)                   // JS 语法
+  const [text, setText] = useState(editPlaceholder)
+  const [html, setHtml] = useState('')
+  const editorRef = useRef<any>(null)
+  let editorView: any;
 
-  // 编辑器内容
-  const [html, setHtml] = useState('<p>hello</p>')
-
-  // 模拟 ajax 请求，异步设置 html
   useEffect(() => {
-    setTimeout(() => {
-      setHtml('<p>hello world</p>')
-    }, 1500)
+    // initMark()
+    editorView = initCodemirror()
+    return () => editorView.destroy()
   }, [])
 
-  // 工具栏配置
-  const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
-  // const toolbarConfig = { }                        // JS 语法
+  // const initMark = () => {
+  //   marked.setOptions({
+  //     renderer: new marked.Renderer(),
+  //     highlight: function (code, lang) {
+  //       const hljs = highlight
+  //       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+  //       return hljs.highlight(code, { language }).value;
+  //     },
+  //     async: false,
+  //     baseUrl: null,
+  //     breaks: false,
+  //     gfm: true,
+  //     headerIds: true,
+  //     headerPrefix: "",
+  //     langPrefix: 'hljs language-', // highlight.js css expects a top-level 'hljs' class.
+  //     mangle: true,
+  //     pedantic: false,
+  //     sanitize: false,
+  //     sanitizer: null,
+  //     silent: false,
+  //     smartypants: false,
+  //     tokenizer: null,
+  //     walkTokens: null,
+  //     xhtml: false
+  //   });
+  // }
 
-  // 编辑器配置
-  const editorConfig: Partial<IEditorConfig> = {    // TS 语法
-    // const editorConfig = {                         // JS 语法
-    placeholder: '请输入内容...',
+  const initCodemirror= () => {
+    const tabSize = new Compartment
+    const state = EditorState.create({
+      doc: text,
+      extensions: [
+        basicSetup,
+        tabSize.of(EditorState.tabSize.of(4)),
+        solarizedDark,
+        EditorView.updateListener.of((e) => {
+          const val = e.state.doc.toString();
+          setText(val)
+          setHtml(marked.parse(val))
+          return val
+        })
+      ],
+    })
+
+    return new EditorView({
+      state,
+      parent: editorRef.current,
+    })
   }
-
-  // 及时销毁 editor ，重要！
-  useEffect(() => {
-    return () => {
-      if (editor == null) return
-      editor.destroy()
-      setEditor(null)
-    }
-  }, [editor])
 
   return (
     <div className="flex flex-col min-h-[100vh]">
       <Header />
-      <Toolbar
-        editor={editor}
-        defaultConfig={toolbarConfig}
-        mode="default"
-        style={{ borderBottom: '1px solid #ccc' }}
-      />
-      <Container maxWidth="md" className="grow mt-3 mb-11 border rounded-md bg-white">
-        <Editor
-          onChange={editor => setHtml(editor.getHtml())}
-          defaultConfig={editorConfig}
-          onCreated={setEditor}
-          value={html}
-          mode="default"
-        />
+
+      <Container maxWidth="xl" className="flex flex-row grow mt-3 mb-11 border rounded-md bg-white h-[80vh] p-0">
+        <div className={`${Style['editor-wrap']} grow overflow-hidden min-w-[50%]`}  ref={editorRef} />
+        <article className={`markdown-body grow min-w-[50%] overflow-auto ${Style['markdown-wrap']}`} dangerouslySetInnerHTML={{ __html: html }} />
       </Container>
 
       {/* 底部固定提交 */}
