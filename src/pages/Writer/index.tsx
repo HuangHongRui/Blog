@@ -1,29 +1,35 @@
 import { marked } from 'marked';
 import { basicSetup } from "codemirror"
+import CreateModal from "./CreateModal";
 import Header from '@/components/Header'
 import { Container } from '@mui/material'
 import { vim } from "@replit/codemirror-vim"
 import { editPlaceholder } from '@/utils/mock'
 import WriterBar from '@/pages/Writer/WriterBar'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { markdown } from "@codemirror/lang-markdown"
 import { EditorView, keymap } from "@codemirror/view"
 import { solarizedDark } from 'cm6-theme-solarized-dark'
 import { javascript } from '@codemirror/lang-javascript'
+import useModal, { useModalProps } from '@/hooks/useModal';
 import { EditorState, Compartment } from "@codemirror/state"
 import { defaultKeymap, history, historyKeymap, insertTab } from "@codemirror/commands"
 import 'github-markdown-css'
 import Style from './index.module.less'
+import { fetchBlogAdd } from '@/service/blogs';
+import { AppConfigContext } from '@/components/AppConfProvider';
 
 function MyEditor() {
+  const { msg } = useContext(AppConfigContext) || ({} as any);
+  const modalProps: useModalProps = useModal();
   const [text, setText] = useState(editPlaceholder)
   const [html, setHtml] = useState('')
   const editorRef = useRef<any>(null)
-  let editorView: any;
+  const editorView = useRef<any>(null)
 
   useEffect(() => {
     initCodemirror()
-    return () => editorView.destroy()
+    return () => editorView.current.destroy()
   }, [])
 
   const initCodemirror = () => {
@@ -51,11 +57,20 @@ function MyEditor() {
       ],
     })
 
-    editorView = new EditorView({ state, parent: editorRef.current })
+    editorView.current = new EditorView({ state, parent: editorRef.current })
   }
 
-  const fnCreate = () => {
-    console.log('create: ', text)
+  const fnCreate = async (title: string) => {
+    const res = await fetchBlogAdd({ title, content: text })
+    if (res) {
+      msg.switch(true, '创建成功')
+      editorView.current.dispatch({
+        changes: {from: 0, to: editorView.current.state.doc.toString().length, insert:''}
+      })
+    } else {
+      msg.switch(true, '创建失败', 'error')
+    }
+    modalProps.toggle(false);
   }
 
   return (
@@ -67,7 +82,8 @@ function MyEditor() {
         <article className={`markdown-body grow min-w-[50%] overflow-auto ${Style['markdown-wrap']}`} dangerouslySetInnerHTML={{ __html: html }} />
       </Container>
 
-      <WriterBar onCreate={fnCreate}/>
+      <WriterBar onOpenModal={() => modalProps.toggle(true)}/>
+      <CreateModal {...modalProps} onCreate={fnCreate} />
     </div>
   )
 }

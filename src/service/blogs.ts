@@ -17,3 +17,13 @@ export const fetchBlogs = (data: any) => {
 export const fetchBlog = (data: any) => {
   return request.get("/blogs/detail", { params: data })
 }
+
+
+/**
+ * @description 博客新增
+ * @param title
+ * @param content
+ */
+export const fetchBlogAdd = (data: { title: string, content: string }) => {
+  return request.post("/blogs/add", data)
+}

@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "@/pages/Home";
 import Writer from "@/pages/Writer";
 import Demo from "@/pages/Else/demo";
 import Article from "@/pages/Article";
+import ReactDOM from "react-dom/client";
 import HaveFun from "@/pages/Else/HaveFun";
+import AppConfProvider from "./components/AppConfProvider";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '@/index.css';
 
 const App = () => {
@@ -25,6 +25,8 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   // <React.StrictMode>
+  <AppConfProvider value={{}}>
     <App />
+  </AppConfProvider>
   // </React.StrictMode>
 );

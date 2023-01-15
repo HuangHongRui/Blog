@@ -16,6 +16,7 @@
     "@codemirror/view": "^6.7.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/base": "^5.0.0-alpha.113",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.12",
     "@replit/codemirror-vim": "^6.0.4",
