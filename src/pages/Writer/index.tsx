@@ -14,10 +14,10 @@ import { javascript } from '@codemirror/lang-javascript'
 import useModal, { useModalProps } from '@/hooks/useModal';
 import { EditorState, Compartment } from "@codemirror/state"
 import { defaultKeymap, history, historyKeymap, insertTab } from "@codemirror/commands"
-import 'github-markdown-css'
-import Style from './index.module.less'
 import { fetchBlogAdd } from '@/service/blogs';
 import { AppConfigContext } from '@/components/AppConfProvider';
+import 'github-markdown-css/github-markdown-light.css'
+import Style from './index.module.less'
 
 function MyEditor() {
   const { msg } = useContext(AppConfigContext) || ({} as any);

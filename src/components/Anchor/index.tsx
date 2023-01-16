@@ -29,7 +29,7 @@ export default ({ dom }: { dom: any }) => {
       dense={true}
       hidden={isHidden}
       disablePadding={true}
-      className={`right-32 ${isFixed ? 'fixed top-10' : 'absolute top-[116%]'}`}
+      className={`right-20 ${isFixed ? 'fixed top-10' : 'absolute top-[116%]'}`}
     >
       <ListItem>目录-1</ListItem>
       <ListItem>目录-2</ListItem>
