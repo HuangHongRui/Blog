@@ -7,7 +7,7 @@ request.interceptors.response.use((res) => {
   if (res.data.errno === 0) {
     return res.data.data
   }
-  alert(res.data.message)
+  // alert(res.data.message)
   return res.data
 }, (error) => {
   return Promise.reject(error);

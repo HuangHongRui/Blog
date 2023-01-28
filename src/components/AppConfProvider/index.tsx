@@ -1,3 +1,5 @@
+import { fetchUserInfo } from "@/service/users";
+import { useRequest } from "ahooks";
 import React, { useMemo, useState } from "react";
 import Message from "../Message";
 
@@ -6,6 +8,7 @@ interface AppConfigProps { }
 export const AppConfigContext = React.createContext<AppConfigProps>({});
 
 const AppConfigProvider = ({ children, value }: { children: React.ReactNode; value: AppConfigProps; }) => {
+  const { data } = useRequest(fetchUserInfo)
   const [msg, setMsg] = useState({
     info: '',
     open: false,
