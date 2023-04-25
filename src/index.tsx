@@ -4,6 +4,7 @@ import Demo from "@/pages/Else/demo";
 import Article from "@/pages/Article";
 import ReactDOM from "react-dom/client";
 import HaveFun from "@/pages/Else/HaveFun";
+import Finance from "@/pages/Finance";
 import AppConfProvider from "./components/AppConfProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '@/index.css';
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/fun" element={<HaveFun/>} />
         <Route path="/article" element={<Article/>} />
         <Route path="/writer" element={<Writer/>} />
+        <Route path="/finance" element={<Finance/>} />
       </Routes>
     </BrowserRouter>
   );

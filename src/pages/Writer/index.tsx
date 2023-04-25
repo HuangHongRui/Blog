@@ -61,7 +61,7 @@ function MyEditor() {
   }
 
   const fnCreate = async (title: string) => {
-    const res = await fetchBlogAdd({ title, content: text })
+    const res: any = await fetchBlogAdd({ title, content: text })
     if (res) {
       msg.switch(true, '创建成功')
       editorView.current.dispatch({

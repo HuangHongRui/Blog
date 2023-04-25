@@ -52,7 +52,7 @@ export default () => {
 
   return (
     <Box className='mt-4 border-solid	border-2 rounded-sm mx-auto' sx={{ maxWidth: 1000 }} >
-      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      <List sx={{ width: '100%', bgcolor: 'background.paper' }} className="min-h-[20vh]">
 
         {data?.map(({ title, content, pv, id }: dataTypes, index: number) => {
           return (
